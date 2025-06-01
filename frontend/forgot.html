@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="forgotForm">
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="text" name="phone" placeholder="Phone" required />
+  <input type="password" name="newPassword" placeholder="New Password" required />
+  <button type="submit">Reset Password</button>
+</form>
+
+<script>
+document.getElementById("forgotForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target));
+  const res = await fetch("http://localhost:5000/api/forgot", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  const result = await res.json();
+  alert(result.message || result.error);
+});
+</script>
+
+</body>
+</html>
